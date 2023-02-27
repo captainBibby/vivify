@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "cy:run": "cypress run"
   },
   "repository": {
     "type": "git",
@@ -17,6 +18,10 @@
   },
   "homepage": "https://github.com/captainBibby/vivify#readme",
   "devDependencies": {
+    "@faker-js/faker": "^7.6.0",
     "cypress": "^12.6.0"
+  },
+  "dependencies": {
+    "faker": "^6.6.6"
   }
 }
