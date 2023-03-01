@@ -81,6 +81,7 @@ import { faker } from '@faker-js/faker';
       expect (resp.status).to.equal(201);
       expect (resp.body).to.have.property("id");
       window.localStorage.setItem("orgId", resp.body.id)
+      cy.writeFile('cypress/fixtures/ids1.json', {organisationId : resp.body.id});
     })
   })
 
@@ -99,7 +100,29 @@ import { faker } from '@faker-js/faker';
     }).then(resp => {
       expect (resp.status).to.equal(201);
       expect (resp.body).to.have.property("id");
-      console.log("RESPONSE", resp.body)
-      window.localStorage.setItem("boardId", resp.body.id)
+      console.log("RESPONSE", resp.body);
+      window.localStorage.setItem("boardId", resp.body.id);
+      cy.writeFile('cypress/fixtures/ids.json', {boardId : resp.body.id});
+    })
+  })
+
+  Cypress.Commands.add("addUser", () =>{
+    let boardId = window.localStorage.getItem("boardId");
+    cy.request({
+      method: "POST",
+      url: `https://cypress-api.vivifyscrum-stage.com/api/v2/boards/${boardId}/users`,
+      headers: {
+        Authorization: `Bearer ${window.localStorage.getItem("token")}`,
+      },
+      body: {
+        access: "admin",
+        email: "unknown@yahoo.com",
+        'g-recaptcha-response': '',
+      },
+    }).then(resp => {
+      expect (resp.status).to.equal(201);
+      expect (resp.body).to.have.property("user_id");
+      console.log("RESPONSE", resp.body);
+      window.localStorage.setItem("userId", resp.body.user_id);
     })
   })

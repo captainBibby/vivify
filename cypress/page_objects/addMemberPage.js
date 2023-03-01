@@ -1,7 +1,7 @@
 class AddMember {
 
     get addTeamMemberBtn () {
-        return cy.get("div[class='vs-c-team-member vs-c-team-member__add-btn']");
+        return cy.get("div[class='vs-c-team-member__avatar']");
 
     }
 
@@ -14,7 +14,7 @@ class AddMember {
     }
 
     addMember(email) {
-        this.addTeamMemberBtn.click();
+        this.addTeamMemberBtn.click({force: true});
         this.emailInput.type(email);
         this.inviteBtn.click();
       }

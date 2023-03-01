@@ -15,7 +15,7 @@ describe('add new member to board', () => {
         cy.visit(`/boards/${boardId}/team`);
         cy.url().should("not.include", "login");
     })
-
+    
     it ("add user to a board", () => {
         
         cy.intercept(
@@ -29,7 +29,9 @@ describe('add new member to board', () => {
             cy.log(JSON.stringify(interception.response.body));
             expect(interception.response.statusCode).eq(201);
             expect(interception.response.body.user.email).eq(email);
+            cy.writeFile('cypress/fixtures/userId.json', {userId : interception.response.body.id});
         })
+
         cy.url().should("include", "team");
     });
 });
